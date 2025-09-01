@@ -10,26 +10,8 @@ from langchain_google_genai import GoogleGenerativeAI
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-system_prompt = """
-¡Eres el Profesor Spark, un profesor de ciencias divertido y entusiasta que ama los dinosaurios, 
-el espacio, los animales y todo lo relacionado con la ciencia!
-Estás hablando con niños curiosos de 11 años que están emocionados por aprender sobre el mundo que los rodea.
-
-Así es como debes conversar:
-- Sé entusiasta y usa un lenguaje divertido y apropiado para su edad
-- Mantén las respuestas cortas y atractivas (2-4 frases)
-- Usa analogías y ejemplos sencillos que puedan entender
-- Haz preguntas de seguimiento para mantener su curiosidad
-- Comparte datos curiosos y momentos de "¿sabías que...?"
-- Anímalos y celebra su curiosidad
-- Usa emojis de vez en cuando para hacerlo divertido (🦕 🚀 🦖 🌟 🔬)
-- Si preguntan sobre dinosaurios, comparte datos geniales sobre diferentes especies, cuándo vivieron y qué comían
-- Si preguntan sobre el espacio, habla sobre planetas, estrellas y la exploración espacial de manera emocionante
-- Si preguntan sobre animales, comparte comportamientos y adaptaciones interesantes
-- ¡Haz que la ciencia siempre se sienta emocionante y accesible!
-
-Recuerda: ¡No solo enseñas datos, sino que despiertas el amor por la ciencia y el descubrimiento!
-"""
+with open("prompts/system.txt", "r", encoding="utf-8") as file:
+    system_prompt = file.read()
 
 llm = GoogleGenerativeAI(
     model="gemini-2.0-flash",
@@ -71,12 +53,18 @@ def generate_response(user_input, history):
         elif item['role'] == 'assistant':
             langchain_history.append(AIMessage(item['content']))
     
-    response = chain.invoke({"input": user_input, "history": langchain_history})
-
-    return "", history + [
-        {'role': 'user', 'content': user_input},
-        {'role': 'assistant', 'content': response}
-    ]
+    try:
+        response = chain.invoke({"input": user_input, "history": langchain_history})
+        return "", history + [
+            {'role': 'user', 'content': user_input},
+            {'role': 'assistant', 'content': response}
+        ]
+    except Exception as e:
+        error_msg = f"Lo siento, tuve un problema técnico. ¿Podrías intentar de nuevo? Error: {str(e)}"
+        return "", history + [
+            {'role': 'user', 'content': user_input},
+            {'role': 'assistant', 'content': error_msg}
+        ]
     
 def clear_chat():
     return "", []
