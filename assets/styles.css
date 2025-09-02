@@ -1,12 +1,21 @@
-/* ===== Professor Spark's Science Lab – Minimal + Full Cream Background ===== */
+/* ===== Professor Spark's Science Lab – Minimal + Full Cream Background (height-responsive) ===== */
 
-/* Viewport & container */
+/* Viewport & container reset */
 html, body { height: 100%; margin: 0; }
+
 /* Full-page cream background */
-html, body, #root, .gradio-container{
-  background: #f8f1dc !important;   /* mismo crema del chat */
+html, body, #root, .gradio-container {
+  background: #f8f1dc !important;
 }
-:root { --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); }
+
+/* Global spacing variables */
+:root{
+  --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); /* room for OS bars */
+  --page-gap: 28px;       /* extra bottom breathing room below the chat block */
+  --header-h: 136px;      /* effective header height used in the main-content calc */
+}
+
+/* Main container */
 .gradio-container{
   height: 100vh; height: 100dvh;
   overflow: hidden;
@@ -14,13 +23,14 @@ html, body, #root, .gradio-container{
   padding-bottom: var(--bottom-safe);
   box-sizing: border-box;
 }
-/* Evita que otros contenedores reimpongan un fondo */
+
+/* Make sure inner wrappers don't repaint a background */
 .gradio-container .app,
 .gradio-container .main,
 .gradio-container .block,
 .gradio-container .tabs { background: transparent !important; }
 
-/* Header + generic purple card */
+/* Header / generic purple card */
 .purple-card{
   background: linear-gradient(135deg,#667eea 0%,#764ba2 100%) !important;
   color:#fff !important;
@@ -28,17 +38,17 @@ html, body, #root, .gradio-container{
   padding:16px !important;
   box-shadow:0 8px 32px rgba(0,0,0,0.08) !important;
   text-align:center !important;
-  margin:16px !important;                 /* header spacing */
+  margin:16px !important;  /* contributes to --header-h */
 }
 .purple-card h1{ margin:0 !important; font-size:2.2em !important; text-shadow:1px 1px 3px rgba(0,0,0,.25) !important; }
 .purple-card h3{ margin:.2rem 0 .5rem 0 !important; font-size:1.05em !important; }
-.purple-card p{ margin:.35rem 0 !important; }
+.purple-card p { margin:.35rem 0 !important; }
 
-/* Main layout (1/4 + 3/4) */
+/* Main layout (1/4 sidebar + 3/4 chat) */
 .main-content{
   display:flex; gap:18px;
-  margin:0 16px 16px 16px !important;
-  height:calc(100dvh - 136px - var(--bottom-safe)) !important; /* fits in one screen */
+  margin:0 16px var(--page-gap) 16px !important; /* bottom gap so the chat isn't glued to the edge */
+  height:calc(100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
   align-items:stretch;
 }
 .left-sidebar.left-col{
@@ -46,12 +56,15 @@ html, body, #root, .gradio-container{
   flex:1 1 0; max-width:25%; min-width:250px;
   overflow:auto; padding-right:2px;
 }
-/* compact cards inside the left column */
+
+/* Compact purple cards inside the left column */
 .left-sidebar .purple-card{
-  margin:0 0 10px 0 !important;            /* tighter than header */
+  margin:0 0 10px 0 !important;
   padding:12px !important;
   text-align:left !important;
 }
+
+/* Right-hand chat container */
 .chat-container.right-col{
   background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%) !important;
   padding:16px !important; border-radius:16px !important;
@@ -61,7 +74,7 @@ html, body, #root, .gradio-container{
   min-width:0; overflow:hidden;
 }
 
-/* Chips (non-interactive) */
+/* Example chips (non-interactive for now) */
 .chips-grid{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
 .chip{
   background:linear-gradient(135deg,#ffe29f 0%,#ffa99f 100%) !important;
@@ -72,18 +85,28 @@ html, body, #root, .gradio-container{
   cursor:default !important; pointer-events:none !important;
 }
 
-/* Chat area */
+/* Chat area (panel) */
 .chatbot{
   border-radius:14px !important; border:3px solid #fff !important;
   box-shadow:0 4px 14px rgba(0,0,0,0.08) !important;
   flex:1 1 auto; min-height:280px; margin-bottom:8px;
   min-width:0; overflow:auto;
 }
-/* bubbles */
-.chatbot .message{ background:#f8f1dc !important; color:#2c2f3c !important; border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important; }
+
+/* Message bubbles:
+   - Assistant: cream bubble with dark text
+   - User: dark bubble with light text */
+.chatbot .message{
+  background:#f8f1dc !important; color:#2c2f3c !important;
+  border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important;
+}
 .chatbot .user{ justify-content:flex-end !important; }
-.chatbot .user .message{ background:#3a3f50 !important; }
-/* avoid nested bubble + outlines */
+.chatbot .user .message{ 
+  background:#f8f1dc !important; 
+  color:#2c2f3c !important;
+}
+
+/* Prevent nested bubble look and remove inner outlines */
 .chatbot .message .message{ background:transparent !important; padding:0 !important; border:0 !important; box-shadow:none !important; }
 .chatbot .message, .chatbot .message *{ outline:none !important; box-shadow:none !important; border:0 !important; text-decoration:none !important; }
 
@@ -106,9 +129,47 @@ html, body, #root, .gradio-container{
 }
 .clear-btn:hover{ transform:scale(1.02); }
 
-/* Responsive */
+/* ===== Height responsiveness =====
+   Shrink header, paddings, and chips on shorter screens while preserving layout height calc. */
+
+/* <= 820px tall: slightly compact */
+@media (max-height: 820px){
+  :root{ --header-h: 120px; }
+  .purple-card{ margin:12px !important; padding:14px !important; }
+  .purple-card h1{ font-size:2em !important; }
+  .purple-card p{ margin:.25rem 0 !important; }
+  .left-sidebar .purple-card{ padding:10px !important; }
+  .chips-grid{ gap:6px; }
+  .chip{ padding:6px 10px !important; font-size:.85em !important; }
+}
+
+/* <= 700px tall: more compact */
+@media (max-height: 700px){
+  :root{ --header-h: 104px; --page-gap: 20px; }
+  .purple-card{ margin:10px !important; padding:12px !important; }
+  .purple-card h1{ font-size:1.8em !important; }
+  .left-sidebar .purple-card{ padding:9px !important; }
+  .chips-grid{ gap:5px; }
+  .chip{ padding:6px 9px !important; font-size:.82em !important; }
+}
+
+/* <= 600px tall: ultra compact (hide subtitle) */
+@media (max-height: 600px){
+  :root{ --header-h: 92px; --page-gap: 16px; }
+  .purple-card{ margin:8px !important; padding:10px !important; }
+  .purple-card h1{ font-size:1.6em !important; }
+  .purple-card p{ display:none !important; }
+  .left-sidebar .purple-card{ padding:8px !important; }
+  .chips-grid{ gap:4px; }
+  .chip{ padding:5px 8px !important; font-size:.8em !important; }
+}
+
+/* Width responsiveness (unchanged behavior) */
 @media (max-width:900px){
-  .main-content{ flex-direction:column; height:calc(100dvh - 136px - var(--bottom-safe)) !important; }
-  .left-sidebar.left-col,.chat-container.right-col{ max-width:100% !important; }
+  .main-content{
+    flex-direction:column;
+    height:calc(100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
+  }
+  .left-sidebar.left-col, .chat-container.right-col{ max-width:100% !important; }
   .clear-btn{ flex-basis:18%; }
 }
