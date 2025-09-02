@@ -1,0 +1,115 @@
+/* ===== Professor Spark's Science Lab – Minimal + Cream Background ===== */
+
+/* Viewport & container */
+html, body { height: 100%; margin: 0; }
+/* Creamy page background (very light version of the chips' gradient) */
+html, body{
+  background: linear-gradient(135deg, #fff6e0 0%, #ffefe6 100%) !important;
+}
+:root { --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); }
+.gradio-container{
+  height: 100vh; height: 100dvh;
+  overflow: hidden;
+  font-family: 'Comic Sans MS', cursive, sans-serif !important;
+  padding-bottom: var(--bottom-safe);
+  box-sizing: border-box;
+
+  /* make sure the theme doesn't reapply dark backgrounds */
+  background: transparent !important;
+  --background-fill-primary: #fff6e0;
+  --background-fill-secondary: #fff6e0;
+  --background-fill-tertiary: #fff6e0;
+}
+
+/* Header + generic purple card */
+.purple-card{
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%) !important;
+  color:#fff !important;
+  border-radius:16px !important;
+  padding:16px !important;
+  box-shadow:0 8px 32px rgba(0,0,0,0.08) !important;
+  text-align:center !important;
+  margin:16px !important;                 /* header spacing */
+}
+.purple-card h1{ margin:0 !important; font-size:2.2em !important; text-shadow:1px 1px 3px rgba(0,0,0,.25) !important; }
+.purple-card h3{ margin:.2rem 0 .5rem 0 !important; font-size:1.05em !important; }
+.purple-card p{ margin:.35rem 0 !important; }
+
+/* Main layout (1/4 + 3/4) */
+.main-content{
+  display:flex; gap:18px;
+  margin:0 16px 16px 16px !important;
+  height:calc(100dvh - 136px - var(--bottom-safe)) !important; /* fits in one screen */
+  align-items:stretch;
+}
+.left-sidebar.left-col{
+  display:flex; flex-direction:column; gap:10px;
+  flex:1 1 0; max-width:25%; min-width:250px;
+  overflow:auto; padding-right:2px;
+}
+/* compact cards inside the left column */
+.left-sidebar .purple-card{
+  margin:0 0 10px 0 !important;            /* tighter than header */
+  padding:12px !important;
+  text-align:left !important;
+}
+.chat-container.right-col{
+  background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%) !important;
+  padding:16px !important; border-radius:16px !important;
+  box-shadow:0 8px 32px rgba(0,0,0,0.08) !important;
+  flex:3 1 0; max-width:75%;
+  display:flex; flex-direction:column;
+  min-width:0; overflow:hidden;
+}
+
+/* Chips (non-interactive) */
+.chips-grid{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+.chip{
+  background:linear-gradient(135deg,#ffe29f 0%,#ffa99f 100%) !important;
+  color:#333 !important; font-weight:700 !important; font-size:.9em !important;
+  border:none !important; border-radius:9999px !important;
+  padding:8px 12px !important; white-space:nowrap;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08) !important;
+  cursor:default !important; pointer-events:none !important;
+}
+
+/* Chat area */
+.chatbot{
+  border-radius:14px !important; border:3px solid #fff !important;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08) !important;
+  flex:1 1 auto; min-height:280px; margin-bottom:8px;
+  min-width:0; overflow:auto;
+}
+/* bubbles */
+.chatbot .message{ background:#2c2f3c !important; color:#fff !important; border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important; }
+.chatbot .user{ justify-content:flex-end !important; }
+.chatbot .user .message{ background:#3a3f50 !important; }
+/* avoid nested bubble + outlines */
+.chatbot .message .message{ background:transparent !important; padding:0 !important; border:0 !important; box-shadow:none !important; }
+.chatbot .message, .chatbot .message *{ outline:none !important; box-shadow:none !important; border:0 !important; text-decoration:none !important; }
+
+/* Input row */
+.input-row{ display:flex; gap:10px; align-items:center; margin-bottom:2px; }
+.textbox{
+  border:none !important; box-shadow:none !important;
+  background:#1c1f2b !important; border-radius:14px !important; flex:1 1 auto; min-width:0;
+}
+.textbox textarea{
+  border:none !important; background:#1c1f2b !important; color:#fff !important;
+  border-radius:14px !important; padding:10px 14px !important; font-size:1em !important;
+}
+.clear-btn{
+  flex:0 0 10%; max-width:150px; min-width:90px;
+  background:linear-gradient(45deg,#ffecd2 0%,#fcb69f 100%) !important;
+  border:none; border-radius:10px; padding:8px 10px;
+  font-size:.9em; font-weight:700; color:#333; text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,0.08) !important; white-space:nowrap;
+}
+.clear-btn:hover{ transform:scale(1.02); }
+
+/* Responsive */
+@media (max-width:900px){
+  .main-content{ flex-direction:column; height:calc(100dvh - 136px - var(--bottom-safe)) !important; }
+  .left-sidebar.left-col,.chat-container.right-col{ max-width:100% !important; }
+  .clear-btn{ flex-basis:18%; }
+}
