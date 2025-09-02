@@ -1,10 +1,10 @@
-/* ===== Professor Spark's Science Lab – Minimal + Cream Background ===== */
+/* ===== Professor Spark's Science Lab – Minimal + Full Cream Background ===== */
 
 /* Viewport & container */
 html, body { height: 100%; margin: 0; }
-/* Creamy page background (very light version of the chips' gradient) */
-html, body{
-  background: linear-gradient(135deg, #fff6e0 0%, #ffefe6 100%) !important;
+/* Full-page cream background */
+html, body, #root, .gradio-container{
+  background: #f8f1dc !important;   /* mismo crema del chat */
 }
 :root { --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); }
 .gradio-container{
@@ -13,13 +13,12 @@ html, body{
   font-family: 'Comic Sans MS', cursive, sans-serif !important;
   padding-bottom: var(--bottom-safe);
   box-sizing: border-box;
-
-  /* make sure the theme doesn't reapply dark backgrounds */
-  background: transparent !important;
-  --background-fill-primary: #fff6e0;
-  --background-fill-secondary: #fff6e0;
-  --background-fill-tertiary: #fff6e0;
 }
+/* Evita que otros contenedores reimpongan un fondo */
+.gradio-container .app,
+.gradio-container .main,
+.gradio-container .block,
+.gradio-container .tabs { background: transparent !important; }
 
 /* Header + generic purple card */
 .purple-card{
@@ -81,7 +80,7 @@ html, body{
   min-width:0; overflow:auto;
 }
 /* bubbles */
-.chatbot .message{ background:#2c2f3c !important; color:#fff !important; border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important; }
+.chatbot .message{ background:#f8f1dc !important; color:#2c2f3c !important; border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important; }
 .chatbot .user{ justify-content:flex-end !important; }
 .chatbot .user .message{ background:#3a3f50 !important; }
 /* avoid nested bubble + outlines */
@@ -100,7 +99,7 @@ html, body{
 }
 .clear-btn{
   flex:0 0 10%; max-width:150px; min-width:90px;
-  background:linear-gradient(45deg,#ffecd2 0%,#fcb69f 100%) !important;
+  background:linear-gradient(45deg,#f8f1dc 0%,#f8f1dc 100%) !important;
   border:none; border-radius:10px; padding:8px 10px;
   font-size:.9em; font-weight:700; color:#333; text-align:center;
   box-shadow:0 3px 12px rgba(0,0,0,0.08) !important; white-space:nowrap;
