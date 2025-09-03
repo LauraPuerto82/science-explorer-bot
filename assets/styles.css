@@ -1,18 +1,16 @@
-/* ===== Professor Spark's Science Lab – Minimal + Full Cream Background (height-responsive) ===== */
+/* ===== Professor Spark's Science Lab – Full Cream BG + Responsive Layout ===== */
 
 /* Viewport & container reset */
 html, body { height: 100%; margin: 0; }
 
 /* Full-page cream background */
-html, body, #root, .gradio-container {
-  background: #f8f1dc !important;
-}
+html, body, #root, .gradio-container { background: #f8f1dc !important; }
 
 /* Global spacing variables */
 :root{
-  --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); /* room for OS bars */
-  --page-gap: 28px;       /* extra bottom breathing room below the chat block */
-  --header-h: 136px;      /* effective header height used in the main-content calc */
+  --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); /* safe area for OS bars */
+  --page-gap: 28px;      /* extra bottom breathing room below the chat block */
+  --header-h: 136px;     /* effective header height used in the main-content calc */
 }
 
 /* Main container */
@@ -24,11 +22,9 @@ html, body, #root, .gradio-container {
   box-sizing: border-box;
 }
 
-/* Make sure inner wrappers don't repaint a background */
+/* Prevent inner wrappers from repainting a background */
 .gradio-container .app,
-.gradio-container .main,
-.gradio-container .block,
-.gradio-container .tabs { background: transparent !important; }
+.gradio-container .main { background: transparent !important; }
 
 /* Header / generic purple card */
 .purple-card{
@@ -47,7 +43,7 @@ html, body, #root, .gradio-container {
 /* Main layout (1/4 sidebar + 3/4 chat) */
 .main-content{
   display:flex; gap:18px;
-  margin:0 16px var(--page-gap) 16px !important; /* bottom gap so the chat isn't glued to the edge */
+  margin:0 16px var(--page-gap) 16px !important; /* bottom gap so the chat isn’t glued to the edge */
   height:calc(100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
   align-items:stretch;
 }
@@ -74,7 +70,7 @@ html, body, #root, .gradio-container {
   min-width:0; overflow:hidden;
 }
 
-/* Example chips (non-interactive for now) */
+/* Example chips (non-interactive) */
 .chips-grid{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
 .chip{
   background:linear-gradient(135deg,#ffe29f 0%,#ffa99f 100%) !important;
@@ -85,7 +81,7 @@ html, body, #root, .gradio-container {
   cursor:default !important; pointer-events:none !important;
 }
 
-/* Chat area (panel) */
+/* Chat panel */
 .chatbot{
   border-radius:14px !important; border:3px solid #fff !important;
   box-shadow:0 4px 14px rgba(0,0,0,0.08) !important;
@@ -93,18 +89,12 @@ html, body, #root, .gradio-container {
   min-width:0; overflow:auto;
 }
 
-/* Message bubbles:
-   - Assistant: cream bubble with dark text
-   - User: dark bubble with light text */
+/* Message bubbles */
 .chatbot .message{
   background:#f8f1dc !important; color:#2c2f3c !important;
   border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important;
 }
 .chatbot .user{ justify-content:flex-end !important; }
-.chatbot .user .message{ 
-  background:#f8f1dc !important; 
-  color:#2c2f3c !important;
-}
 
 /* Prevent nested bubble look and remove inner outlines */
 .chatbot .message .message{ background:transparent !important; padding:0 !important; border:0 !important; box-shadow:none !important; }
@@ -129,10 +119,10 @@ html, body, #root, .gradio-container {
 }
 .clear-btn:hover{ transform:scale(1.02); }
 
-/* ===== Height responsiveness =====
+/* ================= Height responsiveness =================
    Shrink header, paddings, and chips on shorter screens while preserving layout height calc. */
 
-/* <= 820px tall: slightly compact */
+/* <= 820px tall */
 @media (max-height: 820px){
   :root{ --header-h: 120px; }
   .purple-card{ margin:12px !important; padding:14px !important; }
@@ -143,7 +133,7 @@ html, body, #root, .gradio-container {
   .chip{ padding:6px 10px !important; font-size:.85em !important; }
 }
 
-/* <= 700px tall: more compact */
+/* <= 700px tall */
 @media (max-height: 700px){
   :root{ --header-h: 104px; --page-gap: 20px; }
   .purple-card{ margin:10px !important; padding:12px !important; }
@@ -153,7 +143,7 @@ html, body, #root, .gradio-container {
   .chip{ padding:6px 9px !important; font-size:.82em !important; }
 }
 
-/* <= 600px tall: ultra compact (hide subtitle) */
+/* <= 600px tall (hide subtitle) */
 @media (max-height: 600px){
   :root{ --header-h: 92px; --page-gap: 16px; }
   .purple-card{ margin:8px !important; padding:10px !important; }
@@ -164,7 +154,9 @@ html, body, #root, .gradio-container {
   .chip{ padding:5px 8px !important; font-size:.8em !important; }
 }
 
-/* Width responsiveness (unchanged behavior) */
+/* ================= Width responsiveness ================= */
+
+/* Base stack behavior <= 900px (keeps original desktop look above this) */
 @media (max-width:900px){
   .main-content{
     flex-direction:column;
@@ -172,4 +164,116 @@ html, body, #root, .gradio-container {
   }
   .left-sidebar.left-col, .chat-container.right-col{ max-width:100% !important; }
   .clear-btn{ flex-basis:18%; }
+}
+
+/* Mobile/Tablet refinements (preserve desktop as-is) */
+
+/* Global box-sizing to avoid padding/border overflow */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Use svh to avoid mobile URL-bar jumps */
+@media (max-width: 900px){
+  .gradio-container{ height:100svh !important; }
+  .main-content{
+    height:calc(100svh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
+  }
+}
+
+/* When stacked (<=900px), remove fixed min-width from sidebar to prevent horizontal scroll */
+@media (max-width: 900px){
+  .main-content{ margin:0 12px var(--page-gap) 12px !important; gap:14px; }
+  .left-sidebar.left-col, .chat-container.right-col{ max-width:100% !important; }
+  .left-sidebar.left-col{ min-width:0 !important; padding-right:0 !important; }
+}
+
+/* Tablet & large phones <= 768px: soften paddings and chip sizes */
+@media (max-width: 768px){
+  .purple-card{ padding:10px !important; margin:10px !important; border-radius:14px !important; }
+  .purple-card h1{ font-size:1.5em !important; }
+  .purple-card h3{ font-size:1em !important; }
+  .chips-grid{ flex-wrap:wrap; gap:8px; overflow-x:visible; }
+  .chip{ padding:6px 10px !important; font-size:.88em !important; }
+}
+
+/* Phone layout <= 640px: Hide sidebar, stack chat and input */
+@media (max-width: 640px){
+  /* Kill horizontal scroll caused by 1–2px overflow */
+  html, body, .gradio-container, .main-content, .chat-container.right-col{ overflow-x:hidden !important; }
+
+  /* Hide the left column */
+  .left-sidebar.left-col{ display:none !important; }
+
+  /* Main content uses full width in a single column */
+  .main-content{
+    flex-direction: column !important;
+    margin: 0 10px var(--page-gap) 10px !important;
+    gap: 12px !important;
+    height: calc(100svh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
+  }
+
+  /* Make sure the right column behaves as a simple vertical stack */
+  .chat-container.right-col{
+    display:block !important;       /* break any flex rule that could align children in a row */
+    max-width:100% !important;
+    flex:1 1 auto !important;
+    padding:12px !important;
+    overflow:auto !important;
+  }
+
+  /* Chat panel goes first and uses available height */
+  .chatbot{
+    width:100% !important;
+    box-sizing:border-box !important;
+    margin-bottom:10px !important;
+    border-width:2px !important;
+    border-radius:12px !important;
+    min-height:220px;
+    overflow:auto;
+  }
+  .chatbot .message{
+    font-size:.95em !important; padding:8px 10px !important;
+    overflow-wrap:anywhere; word-wrap:break-word; hyphens:auto;
+  }
+
+  /* Input row below the chat, stacked vertically (not sticky) */
+  .input-row{
+    display:block !important;       /* override the flex row */
+    position:static !important;     /* ensure it’s not sticky */
+    background:transparent !important;
+    box-shadow:none !important;
+    border-radius:0 !important;
+    margin:0 !important;
+  }
+
+  /* Controls full width, one under the other */
+  .textbox{ width:100% !important; }
+  .textbox textarea{
+    width:100% !important;
+    min-height:44px !important;
+    padding:12px !important;
+    font-size:1em !important;
+    line-height:1.35 !important;
+    resize:none !important;
+  }
+  .clear-btn{
+    display:block !important;
+    width:100% !important; max-width:100% !important; min-width:0 !important;
+    flex-basis:auto !important;  /* override earlier 18% rule */
+    margin-top:8px !important;
+    border-radius:12px !important;
+  }
+}
+
+/* Small phones <= 420px: extra compression */
+@media (max-width: 420px){
+  .purple-card h1{ font-size:1.3em !important; }
+  .purple-card h3{ font-size:.95em !important; }
+  .purple-card p{ font-size:.92em !important; }
+  .chatbot .message{ padding:7px 9px !important; font-size:.92em !important; line-height:1.35 !important; }
+  .chip{ padding:5px 9px !important; font-size:.82em !important; }
+}
+
+/* iOS: avoid unexpected zooming on textarea focus */
+@supports (-webkit-touch-callout: none) {
+  .textbox textarea{ -webkit-text-size-adjust: 100%; }
 }
