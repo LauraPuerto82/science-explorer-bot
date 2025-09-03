@@ -1,13 +1,14 @@
-# 🌍 World Explorer Bot - Profesor Spark
+# 🌍 World Explorer Bot - Professor Spark
 
-An educational chatbot designed for 6th-grade children that allows them to explore the world of science, dinosaurs, space, animals, and much more through interactive conversations.
+An educational chatbot designed for children that allows them to explore the world of science, dinosaurs, space, animals, and much more through interactive conversations.
 
 ## 🚀 Features
 
-- **Educational chat in Spanish**: Specifically designed for 6th-grade children
+- **Educational chat**: Specifically designed for children with age-appropriate language
 - **Scientific topics**: Dinosaurs, space, animals, natural sciences
-- **Adapted language**: Responses in accessible and understandable language for children
-- **CLI interface**: Easy to use from the command line
+- **Web interface**: Beautiful, responsive Gradio interface with mobile support
+- **Children-friendly design**: Purple gradient theme with Professor Spark character
+- **Multi-language support**: Responds in the same language as the user
 - **Conversation history**: Maintains conversation context
 - **Advanced AI**: Uses Google Gemini 2.0 Flash for intelligent responses
 
@@ -20,7 +21,8 @@ Create an educational tool that inspires scientific curiosity in children, allow
 - **Python 3.x**
 - **LangChain**: Framework for AI applications
 - **Google Gemini 2.0 Flash**: Advanced language model
-- **Gradio**: For future web interfaces (in development)
+- **Gradio**: Web interface framework
+- **CSS**: Responsive design with mobile-first approach
 
 ## 📋 Prerequisites
 
@@ -69,10 +71,12 @@ Create an educational tool that inspires scientific curiosity in children, allow
    python app.py
    ```
 
-2. **Interact with Profesor Spark:**
+2. **Open your browser** and go to the local URL shown in the terminal (usually `http://127.0.0.1:7860`)
+
+3. **Interact with Professor Spark:**
    - Type your questions about science, dinosaurs, space, animals, etc.
    - The bot will respond in an educational and understandable way
-   - Type `exit` to quit
+   - Use the "Clear" button to start a new conversation
 
 ## 🔧 Configuration
 
@@ -86,29 +90,12 @@ Create an educational tool that inspires scientific curiosity in children, allow
 ## 📚 Usage Examples
 
 ```
-You: ¿Por qué los dinosaurios se extinguieron?
-Profesor Spark: ¡Excelente pregunta! Los dinosaurios se extinguieron hace unos 65 millones de años, probablemente debido a un asteroide gigante que golpeó la Tierra...
+You: Why did dinosaurs go extinct?
+Professor Spark: Great question! Dinosaurs went extinct about 65 million years ago, probably due to a giant asteroid that hit Earth...
 
-You: ¿Cómo se forman las estrellas?
-Profesor Spark: Las estrellas se forman en nubes gigantes de gas y polvo llamadas nebulosas...
+You: How do stars form?
+Professor Spark: Stars form in giant clouds of gas and dust called nebulae...
 ```
-
-## 🚧 Upcoming Improvements
-
-- [ ] **Gradio Interface**: Child-friendly web interface
-- [ ] **Multi-language Support**: Spanish and English
-- [ ] **Child-friendly Interface**: Colorful and attractive design for children
-- [ ] **Offline Mode**: Predefined responses for offline use
-- [ ] **Achievement System**: Gamification to motivate learning
-- [ ] **Customizable Topics**: Different scientific categories
-
-## 🤝 Contributions
-
-This is an educational project in development. Contributions are welcome, especially:
-- User interface improvements
-- New scientific topics
-- Performance optimizations
-- Translations and localization
 
 ## 📝 License
 
@@ -119,4 +106,4 @@ This project will be under the MIT license. (License file coming soon!)
 Developed to create an educational tool that makes science accessible and fun for children. The bot is designed to answer questions clearly and understandably, fostering scientific curiosity and love for learning.
 ---
 
-**Enjoy exploring the world with Profesor Spark! 🌟**
+**Enjoy exploring the world with Professor Spark! 🌟**
