@@ -33,17 +33,20 @@ Create an educational tool that inspires scientific curiosity in children, allow
 ## 🚀 Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repository-url>
    cd world-explorer-bot-project
    ```
 
 2. **Create a virtual environment:**
+
    ```bash
    python -m venv venv
    ```
 
 3. **Activate the virtual environment:**
+
    - Windows:
      ```bash
      venv\Scripts\activate
@@ -54,6 +57,7 @@ Create an educational tool that inspires scientific curiosity in children, allow
      ```
 
 4. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
@@ -67,6 +71,7 @@ Create an educational tool that inspires scientific curiosity in children, allow
 ## 🎮 Usage
 
 1. **Run the application:**
+
    ```bash
    python app.py
    ```
@@ -104,6 +109,7 @@ This project will be under the MIT license. (License file coming soon!)
 ## 👨‍🏫 About the Project
 
 Developed to create an educational tool that makes science accessible and fun for children. The bot is designed to answer questions clearly and understandably, fostering scientific curiosity and love for learning.
+
 ---
 
 **Enjoy exploring the world with Professor Spark! 🌟**

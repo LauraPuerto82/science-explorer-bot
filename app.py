@@ -1,7 +1,6 @@
 import os
-import re
 from dotenv import load_dotenv
-import gradio as gr
+import gradio as gr 
 
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -33,9 +32,12 @@ chain = prompt | llm | StrOutputParser()
 def _history_to_langchain(history):
     lc = []
     for item in (history or []):
-        role = item.get("role"); content = item.get("content", "")
-        if role == "user": lc.append(HumanMessage(content))
-        elif role == "assistant": lc.append(AIMessage(content))
+        role = item.get("role") 
+        content = item.get("content", "")
+        if role == "user": 
+            lc.append(HumanMessage(content))
+        elif role == "assistant": 
+            lc.append(AIMessage(content))
     return lc
 
 def generate_response(user_input, history):
@@ -58,7 +60,7 @@ with open("assets/styles.css", "r", encoding="utf-8") as css_file:
 
 page = gr.Blocks(
     title="🌍 Science Explorer Chat - Professor Spark 🧑‍🏫",
-    theme=gr.themes.Soft(),
+    theme=gr.themes.Soft(), # type: ignore
     css=custom_css,
 )
 
@@ -106,7 +108,7 @@ with page:
         with gr.Column(elem_classes=["chat-container", "right-col"]):
             chatbot = gr.Chatbot(
                 type="messages",
-                avatar_images=[None, "assets/avatar.png"],
+                avatar_images=(None, "assets/avatar.png"), 
                 show_label=False,
                 render_markdown=False,
                 elem_classes=["chatbot"],

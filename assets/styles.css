@@ -1,279 +1,502 @@
-/* ===== Professor Spark's Science Lab – Full Cream BG + Responsive Layout ===== */
+/* ===== Professor Spark's Science Lab – Clean, responsive CSS ===== */
 
-/* Viewport & container reset */
-html, body { height: 100%; margin: 0; }
-
-/* Full-page cream background */
-html, body, #root, .gradio-container { background: #f8f1dc !important; }
-
-/* Global spacing variables */
-:root{
-  --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px); /* safe area for OS bars */
-  --page-gap: 28px;      /* extra bottom breathing room below the chat block */
-  --header-h: 136px;     /* effective header height used in the main-content calc */
+/* --- Page & background reset --- */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+html,
+body,
+#root,
+.gradio-container {
+  background: #f8f1dc !important;
 }
 
-/* Main container */
-.gradio-container{
-  height: 100vh; height: 100dvh;
-  overflow: hidden;
-  font-family: 'Comic Sans MS', cursive, sans-serif !important;
+/* --- Global spacing variables --- */
+:root {
+  --bottom-safe: max(env(safe-area-inset-bottom, 0px), 48px);
+  --page-gap: 28px;
+  --header-h: 136px;
+}
+
+/* --- Gradio container --- */
+.gradio-container {
+  /* IMPORTANT: allow the page to grow and scroll */
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  font-family: "Comic Sans MS", cursive, sans-serif !important;
   padding-bottom: var(--bottom-safe);
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 /* Prevent inner wrappers from repainting a background */
 .gradio-container .app,
-.gradio-container .main { background: transparent !important; }
-
-/* Header / generic purple card */
-.purple-card{
-  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%) !important;
-  color:#fff !important;
-  border-radius:16px !important;
-  padding:16px !important;
-  box-shadow:0 8px 32px rgba(0,0,0,0.08) !important;
-  text-align:center !important;
-  margin:16px !important;  /* contributes to --header-h */
-}
-.purple-card h1{ margin:0 !important; font-size:2.2em !important; text-shadow:1px 1px 3px rgba(0,0,0,.25) !important; }
-.purple-card h3{ margin:.2rem 0 .5rem 0 !important; font-size:1.05em !important; }
-.purple-card p { margin:.35rem 0 !important; }
-
-/* Main layout (1/4 sidebar + 3/4 chat) */
-.main-content{
-  display:flex; gap:18px;
-  margin:0 16px var(--page-gap) 16px !important; /* bottom gap so the chat isn’t glued to the edge */
-  height:calc(100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
-  align-items:stretch;
-}
-.left-sidebar.left-col{
-  display:flex; flex-direction:column; gap:10px;
-  flex:1 1 0; max-width:25%; min-width:250px;
-  overflow:auto; padding-right:2px;
+.gradio-container .main {
+  background: transparent !important;
 }
 
-/* Compact purple cards inside the left column */
-.left-sidebar .purple-card{
-  margin:0 0 10px 0 !important;
-  padding:12px !important;
-  text-align:left !important;
+/* --- Header card --- */
+.purple-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: #fff !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+  text-align: center !important;
+  margin: 16px !important;
+}
+.purple-card h1 {
+  margin: 0 !important;
+  font-size: 2.2em !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25) !important;
+}
+.purple-card h3 {
+  margin: 0.2rem 0 0.5rem 0 !important;
+  font-size: 1.05em !important;
+}
+.purple-card p {
+  margin: 0.35rem 0 !important;
 }
 
-/* Right-hand chat container */
-.chat-container.right-col{
-  background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%) !important;
-  padding:16px !important; border-radius:16px !important;
-  box-shadow:0 8px 32px rgba(0,0,0,0.08) !important;
-  flex:3 1 0; max-width:75%;
-  display:flex; flex-direction:column;
-  min-width:0; overflow:hidden;
+/* --- Main layout: sidebar + chat --- */
+.main-content {
+  display: flex;
+  gap: 18px;
+  margin: 0 16px var(--page-gap) 16px !important;
+  /* Only set a minimum height: if more is needed, page scroll is added */
+  min-height: calc(
+    100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap)
+  );
+  align-items: stretch;
 }
 
-/* Example chips (non-interactive) */
-.chips-grid{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
-.chip{
-  background:linear-gradient(135deg,#ffe29f 0%,#ffa99f 100%) !important;
-  color:#333 !important; font-weight:700 !important; font-size:.9em !important;
-  border:none !important; border-radius:9999px !important;
-  padding:8px 12px !important; white-space:nowrap;
-  box-shadow:0 3px 10px rgba(0,0,0,0.08) !important;
-  cursor:default !important; pointer-events:none !important;
+/* Sidebar: flexible width with constraints */
+.left-sidebar.left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 300px;
+  max-width: 350px;
+  min-width: 260px;
+  overflow: auto;
+  padding-right: 2px;
+}
+.left-sidebar .purple-card {
+  margin: 0 0 10px 0 !important;
+  padding: 12px !important;
+  text-align: left !important;
 }
 
-/* Chat panel */
-.chatbot{
-  border-radius:14px !important; border:3px solid #fff !important;
-  box-shadow:0 4px 14px rgba(0,0,0,0.08) !important;
-  flex:1 1 auto; min-height:280px; margin-bottom:8px;
-  min-width:0; overflow:auto;
+/* --- Chat column (flexible, NO fixed min-width) --- */
+.chat-container.right-col {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+  flex: 1 1 0;
+  min-width: 0; /* CRITICAL: allows shrinking */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  overflow: hidden;
 }
 
-/* Message bubbles */
-.chatbot .message{
-  background:#f8f1dc !important; color:#2c2f3c !important;
-  border-radius:12px !important; padding:8px 12px !important; line-height:1.4 !important;
+/* --- Chips (non interactive) --- */
+.chips-grid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
 }
-.chatbot .user{ justify-content:flex-end !important; }
-
-/* Prevent nested bubble look and remove inner outlines */
-.chatbot .message .message{ background:transparent !important; padding:0 !important; border:0 !important; box-shadow:none !important; }
-.chatbot .message, .chatbot .message *{ outline:none !important; box-shadow:none !important; border:0 !important; text-decoration:none !important; }
-
-/* Input row */
-.input-row{ display:flex; gap:10px; align-items:center; margin-bottom:2px; }
-.textbox{
-  border:none !important; box-shadow:none !important;
-  background:#1c1f2b !important; border-radius:14px !important; flex:1 1 auto; min-width:0;
-}
-.textbox textarea{
-  border:none !important; background:#1c1f2b !important; color:#fff !important;
-  border-radius:14px !important; padding:10px 14px !important; font-size:1em !important;
-}
-.clear-btn{
-  flex:0 0 10%; max-width:150px; min-width:90px;
-  background:linear-gradient(45deg,#f8f1dc 0%,#f8f1dc 100%) !important;
-  border:none; border-radius:10px; padding:8px 10px;
-  font-size:.9em; font-weight:700; color:#333; text-align:center;
-  box-shadow:0 3px 12px rgba(0,0,0,0.08) !important; white-space:nowrap;
-}
-.clear-btn:hover{ transform:scale(1.02); }
-
-/* ================= Height responsiveness =================
-   Shrink header, paddings, and chips on shorter screens while preserving layout height calc. */
-
-/* <= 820px tall */
-@media (max-height: 820px){
-  :root{ --header-h: 120px; }
-  .purple-card{ margin:12px !important; padding:14px !important; }
-  .purple-card h1{ font-size:2em !important; }
-  .purple-card p{ margin:.25rem 0 !important; }
-  .left-sidebar .purple-card{ padding:10px !important; }
-  .chips-grid{ gap:6px; }
-  .chip{ padding:6px 10px !important; font-size:.85em !important; }
+.chip {
+  background: linear-gradient(135deg, #ffe29f 0%, #ffa99f 100%) !important;
+  color: #333 !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  padding: 8px 12px !important;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08) !important;
+  cursor: default !important;
+  pointer-events: none !important;
 }
 
-/* <= 700px tall */
-@media (max-height: 700px){
-  :root{ --header-h: 104px; --page-gap: 20px; }
-  .purple-card{ margin:10px !important; padding:12px !important; }
-  .purple-card h1{ font-size:1.8em !important; }
-  .left-sidebar .purple-card{ padding:9px !important; }
-  .chips-grid{ gap:5px; }
-  .chip{ padding:6px 9px !important; font-size:.82em !important; }
+/* --- Chat panel --- */
+.chatbot {
+  border-radius: 14px !important;
+  border: 3px solid #fff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important; /* CRUCIAL: allow shrinking */
+  margin: 0 0 12px 0 !important;
+  min-width: 0;
+  overflow: auto;
 }
 
-/* <= 600px tall (hide subtitle) */
-@media (max-height: 600px){
-  :root{ --header-h: 92px; --page-gap: 16px; }
-  .purple-card{ margin:8px !important; padding:10px !important; }
-  .purple-card h1{ font-size:1.6em !important; }
-  .purple-card p{ display:none !important; }
-  .left-sidebar .purple-card{ padding:8px !important; }
-  .chips-grid{ gap:4px; }
-  .chip{ padding:5px 8px !important; font-size:.8em !important; }
+/* --- Message bubbles --- */
+.chatbot .message {
+  background: #f8f1dc !important;
+  color: #2c2f3c !important;
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  line-height: 1.4 !important;
+}
+.chatbot .user {
+  justify-content: flex-end !important;
+}
+.chatbot .message .message {
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.chatbot .message,
+.chatbot .message * {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  text-decoration: none !important;
 }
 
-/* ================= Width responsiveness ================= */
+/* --- Input row --- */
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0 !important;
+}
+.textbox {
+  border: none !important;
+  box-shadow: none !important;
+  background: #1c1f2b !important;
+  border-radius: 14px !important;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.textbox textarea {
+  border: none !important;
+  background: #1c1f2b !important;
+  color: #fff !important;
+  border-radius: 14px !important;
+  padding: 10px 14px !important;
+  font-size: 1em !important;
+  min-height: 48px !important;
+  resize: none;
+}
+.clear-btn {
+  flex: 0 0 auto;
+  min-width: 90px;
+  max-width: 120px;
+  background: linear-gradient(45deg, #f8f1dc 0%, #f8f1dc 100%) !important;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: #333;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08) !important;
+  white-space: nowrap;
+}
+.clear-btn:hover {
+  transform: scale(1.02);
+}
 
-/* Base stack behavior <= 900px (keeps original desktop look above this) */
-@media (max-width:900px){
-  .main-content{
-    flex-direction:column;
-    height:calc(100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
+/* ================= HEIGHT RESPONSIVENESS ================= */
+@media (max-height: 820px) {
+  :root {
+    --header-h: 120px;
   }
-  .left-sidebar.left-col, .chat-container.right-col{ max-width:100% !important; }
-  .clear-btn{ flex-basis:18%; }
-}
-
-/* Mobile/Tablet refinements (preserve desktop as-is) */
-
-/* Global box-sizing to avoid padding/border overflow */
-*, *::before, *::after { box-sizing: border-box; }
-
-/* Use svh to avoid mobile URL-bar jumps */
-@media (max-width: 900px){
-  .gradio-container{ height:100svh !important; }
-  .main-content{
-    height:calc(100svh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
+  .purple-card {
+    margin: 12px !important;
+    padding: 14px !important;
+  }
+  .purple-card h1 {
+    font-size: 2em !important;
+  }
+  .purple-card p {
+    margin: 0.25rem 0 !important;
+  }
+  .left-sidebar .purple-card {
+    padding: 10px !important;
+  }
+  .chips-grid {
+    gap: 6px;
+  }
+  .chip {
+    padding: 6px 10px !important;
+    font-size: 0.85em !important;
   }
 }
 
-/* When stacked (<=900px), remove fixed min-width from sidebar to prevent horizontal scroll */
-@media (max-width: 900px){
-  .main-content{ margin:0 12px var(--page-gap) 12px !important; gap:14px; }
-  .left-sidebar.left-col, .chat-container.right-col{ max-width:100% !important; }
-  .left-sidebar.left-col{ min-width:0 !important; padding-right:0 !important; }
+@media (max-height: 700px) {
+  :root {
+    --header-h: 104px;
+    --page-gap: 20px;
+  }
+  .purple-card {
+    margin: 10px !important;
+    padding: 12px !important;
+  }
+  .purple-card h1 {
+    font-size: 1.8em !important;
+  }
+  .left-sidebar .purple-card {
+    padding: 9px !important;
+  }
+  .chips-grid {
+    gap: 5px;
+  }
+  .chip {
+    padding: 6px 9px !important;
+    font-size: 0.82em !important;
+  }
 }
 
-/* Tablet & large phones <= 768px: soften paddings and chip sizes */
-@media (max-width: 768px){
-  .purple-card{ padding:10px !important; margin:10px !important; border-radius:14px !important; }
-  .purple-card h1{ font-size:1.5em !important; }
-  .purple-card h3{ font-size:1em !important; }
-  .chips-grid{ flex-wrap:wrap; gap:8px; overflow-x:visible; }
-  .chip{ padding:6px 10px !important; font-size:.88em !important; }
+@media (max-height: 600px) {
+  :root {
+    --header-h: 92px;
+    --page-gap: 16px;
+  }
+  .purple-card {
+    margin: 8px !important;
+    padding: 10px !important;
+  }
+  .purple-card h1 {
+    font-size: 1.6em !important;
+  }
+  .purple-card p {
+    display: none !important;
+  }
+  .left-sidebar .purple-card {
+    padding: 8px !important;
+  }
+  .chips-grid {
+    gap: 4px;
+  }
+  .chip {
+    padding: 5px 8px !important;
+    font-size: 0.8em !important;
+  }
 }
 
-/* Phone layout <= 640px: Hide sidebar, stack chat and input */
-@media (max-width: 640px){
-  /* Kill horizontal scroll caused by 1–2px overflow */
-  html, body, .gradio-container, .main-content, .chat-container.right-col{ overflow-x:hidden !important; }
+/* ==== EXTRA: standard laptop viewport – slightly shorter main area ==== */
+@media (min-width: 900px) and (max-height: 900px) {
+  .main-content {
+    /* subtract ~60px to avoid scroll appearing
+       on typical laptops (1366×768, 1920×1080 with toolbars) */
+    min-height: calc(
+      100dvh - var(--header-h) - var(--bottom-safe) - var(--page-gap) - 60px
+    );
+  }
+}
 
-  /* Hide the left column */
-  .left-sidebar.left-col{ display:none !important; }
+/* ================= WIDTH RESPONSIVENESS ================= */
 
-  /* Main content uses full width in a single column */
-  .main-content{
+/* Large screens: optimize spacing */
+@media (min-width: 1400px) {
+  .main-content {
+    gap: 24px;
+  }
+  .left-sidebar.left-col {
+    flex: 0 0 320px;
+    max-width: 380px;
+  }
+}
+
+/* Medium-large screens: balance proportions */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .main-content {
+    gap: 20px;
+  }
+  .left-sidebar.left-col {
+    flex: 0 0 300px;
+    max-width: 350px;
+  }
+}
+
+/* Medium screens: tighter layout */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .main-content {
+    gap: 16px;
+    margin: 0 14px var(--page-gap) 14px !important;
+  }
+  .left-sidebar.left-col {
+    flex: 0 0 280px;
+    max-width: 320px;
+    min-width: 240px;
+  }
+}
+
+/* Medium-small screens: reduce gap further */
+@media (min-width: 900px) and (max-width: 1023px) {
+  .main-content {
+    gap: 14px;
+    margin: 0 12px var(--page-gap) 12px !important;
+  }
+  .left-sidebar.left-col {
+    flex: 0 0 260px;
+    max-width: 300px;
+    min-width: 220px;
+  }
+}
+
+/* <=900px: stack columns */
+@media (max-width: 900px) {
+  .main-content {
+    flex-direction: column;
+    /* again, only minimum height */
+    min-height: calc(
+      100svh - var(--header-h) - var(--bottom-safe) - var(--page-gap)
+    ) !important;
+    margin: 0 12px var(--page-gap) 12px !important;
+    gap: 14px;
+  }
+  .left-sidebar.left-col,
+  .chat-container.right-col {
+    max-width: 100% !important;
+  }
+  .left-sidebar.left-col {
+    min-width: 0 !important;
+    padding-right: 0 !important;
+    flex: 0 0 auto;
+  }
+  .chat-container.right-col {
+    flex: 1 1 auto;
+  }
+}
+
+/* <=768px: soften paddings and chips */
+@media (max-width: 768px) {
+  .purple-card {
+    padding: 10px !important;
+    margin: 10px !important;
+    border-radius: 14px !important;
+  }
+  .purple-card h1 {
+    font-size: 1.5em !important;
+  }
+  .purple-card h3 {
+    font-size: 1em !important;
+  }
+  .chips-grid {
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow-x: visible;
+  }
+  .chip {
+    padding: 6px 10px !important;
+    font-size: 0.88em !important;
+  }
+}
+
+/* <=640px: hide sidebar, chat first, input below, no horizontal scroll */
+@media (max-width: 640px) {
+  html,
+  body,
+  .gradio-container,
+  .main-content,
+  .chat-container.right-col {
+    overflow-x: hidden !important;
+  }
+
+  .left-sidebar.left-col {
+    display: none !important;
+  }
+
+  .main-content {
     flex-direction: column !important;
     margin: 0 10px var(--page-gap) 10px !important;
     gap: 12px !important;
-    height: calc(100svh - var(--header-h) - var(--bottom-safe) - var(--page-gap)) !important;
+    /* minimum height, not fixed */
+    min-height: calc(
+      100svh - var(--header-h) - var(--bottom-safe) - var(--page-gap)
+    ) !important;
   }
 
-  /* Make sure the right column behaves as a simple vertical stack */
-  .chat-container.right-col{
-    display:block !important;       /* break any flex rule that could align children in a row */
-    max-width:100% !important;
-    flex:1 1 auto !important;
-    padding:12px !important;
-    overflow:auto !important;
+  .chat-container.right-col {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 12px !important;
+    overflow: hidden !important;
   }
 
-  /* Chat panel goes first and uses available height */
-  .chatbot{
-    width:100% !important;
-    box-sizing:border-box !important;
-    margin-bottom:10px !important;
-    border-width:2px !important;
-    border-radius:12px !important;
-    min-height:220px;
-    overflow:auto;
+  .chatbot {
+    border-width: 2px !important;
+    border-radius: 12px !important;
+    min-height: 220px;
+    margin-bottom: 10px !important;
   }
-  .chatbot .message{
-    font-size:.95em !important; padding:8px 10px !important;
-    overflow-wrap:anywhere; word-wrap:break-word; hyphens:auto;
-  }
-
-  /* Input row below the chat, stacked vertically (not sticky) */
-  .input-row{
-    display:block !important;       /* override the flex row */
-    position:static !important;     /* ensure it’s not sticky */
-    background:transparent !important;
-    box-shadow:none !important;
-    border-radius:0 !important;
-    margin:0 !important;
+  .chatbot .message {
+    font-size: 0.95em !important;
+    padding: 8px 10px !important;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    hyphens: auto;
   }
 
-  /* Controls full width, one under the other */
-  .textbox{ width:100% !important; }
-  .textbox textarea{
-    width:100% !important;
-    min-height:44px !important;
-    padding:12px !important;
-    font-size:1em !important;
-    line-height:1.35 !important;
-    resize:none !important;
+  .input-row {
+    flex-direction: column !important;
+    gap: 8px !important;
   }
-  .clear-btn{
-    display:block !important;
-    width:100% !important; max-width:100% !important; min-width:0 !important;
-    flex-basis:auto !important;  /* override earlier 18% rule */
-    margin-top:8px !important;
-    border-radius:12px !important;
+
+  .textbox {
+    width: 100% !important;
+  }
+  .textbox textarea {
+    min-height: 44px !important;
+    padding: 12px !important;
+    line-height: 1.35 !important;
+  }
+  .clear-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 }
 
-/* Small phones <= 420px: extra compression */
-@media (max-width: 420px){
-  .purple-card h1{ font-size:1.3em !important; }
-  .purple-card h3{ font-size:.95em !important; }
-  .purple-card p{ font-size:.92em !important; }
-  .chatbot .message{ padding:7px 9px !important; font-size:.92em !important; line-height:1.35 !important; }
-  .chip{ padding:5px 9px !important; font-size:.82em !important; }
+/* <=420px: extra compression */
+@media (max-width: 420px) {
+  .purple-card h1 {
+    font-size: 1.3em !important;
+  }
+  .purple-card h3 {
+    font-size: 0.95em !important;
+  }
+  .purple-card p {
+    font-size: 0.92em !important;
+  }
+  .chatbot .message {
+    padding: 7px 9px !important;
+    font-size: 0.92em !important;
+    line-height: 1.35 !important;
+  }
+  .chip {
+    padding: 5px 9px !important;
+    font-size: 0.82em !important;
+  }
 }
 
 /* iOS: avoid unexpected zooming on textarea focus */
 @supports (-webkit-touch-callout: none) {
-  .textbox textarea{ -webkit-text-size-adjust: 100%; }
+  .textbox textarea {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* Desktop tightening of bottom safe area */
+@media (min-width: 1024px) {
+  :root {
+    --bottom-safe: 16px;
+  }
 }
